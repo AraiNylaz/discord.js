@@ -87,6 +87,7 @@ class DataResolver {
   static resolveFile(resource) {
     if (!browser && Buffer.isBuffer(resource)) return Promise.resolve(resource);
     if (browser && resource instanceof ArrayBuffer) return Promise.resolve(Util.convertToBuffer(resource));
+    if (!browser && resource instanceof Object) return Promise.resolve(Buffer.from(resource));
 
     if (typeof resource === 'string') {
       if (/^https?:\/\//.test(resource)) {
