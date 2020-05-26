@@ -148,7 +148,7 @@ class RequestHandler {
     } else if (res.status === 429) {
       // A ratelimit was hit - this should never happen
       this.queue.unshift(item);
-      this.manager.client.emit('debug', `429 hit on route ${item.request.route}`);
+      console.error(`429 hit on route ${item.request.route}`);
       await Util.delayFor(this.retryAfter);
       return this.run();
     } else if (res.status >= 500 && res.status < 600) {
