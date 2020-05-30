@@ -53,6 +53,7 @@ class ReactionUserManager extends BaseManager {
    */
   remove(user = this.reaction.message.client.user) {
     const message = this.reaction.message;
+    if(message.deleted) return;
     const userID = message.client.users.resolveID(user);
     if (!userID) return Promise.reject(new Error('REACTION_RESOLVE_USER'));
     return message.client.api.channels[message.channel.id].messages[message.id].reactions[
